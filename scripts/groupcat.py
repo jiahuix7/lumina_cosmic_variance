@@ -3,8 +3,6 @@
 """ Illustris Simulation: Public Data Release.
 groupcat.py: File I/O related to the FoF and Subfind group catalogs. """
 
-from __future__ import print_function
-
 import six
 from os.path import isfile,expanduser
 import numpy as np
