@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=lumina_hmf_cv
+#SBATCH --job-name=lumina_smf_cv
 #SBATCH --partition=sched_mit_mvogelsb
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
@@ -8,7 +8,7 @@
 #SBATCH --time=01:00:00
 #SBATCH --output=logs/%x_%j.out
 #SBATCH --error=logs/%x_%j.err
-#SBATCH --mail-user=jxie2@caltech.edu
+#SBATCH --mail-user=jxie2@mit.edu
 #SBATCH --mail-type=END,FAIL
 
 set -euo pipefail
@@ -24,11 +24,10 @@ module purge
 module load community-modules
 module load miniforge/24.3.0-0
 
-conda activate mypy3
+conda activate lumina_cv
 which python
 python --version
 
-cd notebooks
-python compute_cv.py
+python scripts/compute_SMF_cv.py
 
 echo "Job finished"
