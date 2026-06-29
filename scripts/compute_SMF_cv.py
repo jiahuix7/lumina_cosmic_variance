@@ -50,7 +50,9 @@ def calculate_field_volume(cosmology, z_center, delta_z, survey_area):
 
 def load_data(base_path, snap_num):
     catalog_path = groupcat.gcPath(base_path, snap_num)
+    print("loading subhalo catalog...", flush=True)
     subhalos = groupcat.loadSubhalos(base_path,snap_num,fields=["SubhaloPos", "SubhaloMassInRadType", "SubhaloLenType"],)
+    print("finishing loading subhalos!", flush=True)
     with h5py.File(catalog_path, "r") as f:
         h = f["Parameters"].attrs["HubbleParam"]
         box_size_raw = f["Header"].attrs["BoxSize"]
@@ -184,8 +186,10 @@ def build_count_matrix(field_ids, mass_bin_ids, in_mass_range, n_fields, n_mass_
 
     return count_matrix
 
-base_path = "/orcd/data/mvogelsb/005/Lumina/Lumina_above_z_4p75/group_files"
-snap_num = 36
+# base_path = "/orcd/data/mvogelsb/005/Lumina/Lumina_above_z_4p75/group_files"
+# snap_num = 36
+base_path = "/orcd/data/mvogelsb/005/Lumina/Lumina_below_z_4p75/group_files"
+snap_num = 158
 data = load_data(base_path, snap_num)
 
 positions_cmpc, mass_msun, valid = select_valid_subhalos(data=data,res_cut=res_cut,stellar_mass_cut=stellar_mass_cut,)
@@ -255,13 +259,14 @@ total_objects_per_bin = count_matrix.sum(axis=0)
 ok = total_objects_per_bin >= min_total_objects
 
 output_dir = Path("outputs")
-# plt.figure(figsize=(7, 5))
-# plt.plot(mass_bin_centers[ok],cv_results["sigma_cv"][ok],marker="o",linestyle="-",)
-# plt.xlabel(r"$\log_{10}(M_{\mathrm{star}}(<2R_{1/2})/M_\odot)$")
-# plt.ylabel(r"$\sigma_{\rm CV}$")
-# plt.title("Cosmic variance of the SMF")
-# plt.grid(alpha=0.3)
+plt.figure(figsize=(7, 5))
+plt.plot(mass_bin_centers[ok],cv_results["sigma_cv"][ok],marker="o",linestyle="-",)
+plt.xlabel(r"$\log_{10}(M_{\mathrm{star}}(<2R_{1/2})/M_\odot)$")
+plt.ylabel(r"$\sigma_{\rm CV}$")
+plt.title("Cosmic variance of the SMF")
+plt.grid(alpha=0.3)
 # plt.savefig(output_dir / "sigma_cv_vs_mass_SMF.png", dpi=200, bbox_inches="tight")
+plt.savefig(output_dir / "sigma_cv_vs_mass_SMF_z3.png", dpi=200, bbox_inches="tight")
 
 #compute SMF to compare with observational data
 total_galaxies_per_bin = count_matrix.sum(axis=0)
@@ -275,10 +280,11 @@ fig, ax = plt.subplots(figsize=(7, 5))
 
 ax.plot(mass_bin_centers,log_phi,marker="o",linestyle="-",color="tab:blue",label="Lumina",)
 
-plot_obs_smf(redshift=12,ax=ax,dict_style={"ms": 5, "color": "black"},)
+plot_obs_smf(redshift=3,ax=ax,dict_style={"ms": 5, "color": "black"},)
 ax.set_xlabel(r"$\log_{10}(M_{\mathrm{star}}/M_\odot)$")
 ax.set_ylabel(r"$\log_{10}(\Phi / {\rm Mpc}^{-3}\,{\rm dex}^{-1})$")
-ax.set_title("Stellar Mass Function")
+ax.set_title("Stellar mass function at $z \simeq 3$")
 ax.grid(alpha=0.3)
-ax.legend()
-plt.savefig(output_dir / "SMF_lumina_vs_obs.png",dpi=200,bbox_inches="tight",)
+ax.legend(loc="center left", bbox_to_anchor=(1.02, 0.5),frameon=True)
+# plt.savefig(output_dir / "SMF_lumina_vs_obs.png",dpi=200,bbox_inches="tight",)
+plt.savefig(output_dir / "SMF_lumina_vs_obs_z=3.png", dpi=200, bbox_inches="tight")
