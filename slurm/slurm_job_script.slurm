@@ -5,7 +5,7 @@
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1
 #SBATCH --mem=64G
-#SBATCH --time=04:00:00
+#SBATCH --time=01:00:00
 #SBATCH --output=logs/%x_%j.out
 #SBATCH --error=logs/%x_%j.err
 #SBATCH --mail-user=jxie2@mit.edu
@@ -28,6 +28,6 @@ conda activate lumina_cv
 which python
 python --version
 
-python scripts/compute_SMF_cv.py
+python scripts/compute_UVLF_cv.py
 
 echo "Job finished"
