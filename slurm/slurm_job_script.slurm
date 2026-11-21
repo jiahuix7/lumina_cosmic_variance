@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH --job-name=lumina_smf_cv
-#SBATCH --partition=sched_mit_mvogelsb
+#SBATCH --partition=YOUR_PARTITION
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1
@@ -8,8 +8,6 @@
 #SBATCH --time=01:00:00
 #SBATCH --output=logs/%x_%j.out
 #SBATCH --error=logs/%x_%j.err
-#SBATCH --mail-user=jxie2@mit.edu
-#SBATCH --mail-type=END,FAIL
 
 set -euo pipefail
 
@@ -17,7 +15,7 @@ echo "Job started on $(hostname)"
 echo "Job ID: ${SLURM_JOB_ID}"
 echo "Working directory: $(pwd)"
 
-cd "${HOME}/Projects/lumina_cosmic_variance"
+cd "${SLURM_SUBMIT_DIR}"
 mkdir -p logs figures outputs
 
 module purge

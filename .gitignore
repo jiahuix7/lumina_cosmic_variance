@@ -10,3 +10,6 @@ outputs/
 *.hdf5
 *.h5
 slurm-*.out
+*.npz
+figures/*.png
+figures/*.pdf

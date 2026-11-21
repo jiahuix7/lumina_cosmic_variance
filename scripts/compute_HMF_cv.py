@@ -1,3 +1,4 @@
+import os
 import sys
 from pathlib import Path
 
@@ -178,7 +179,7 @@ def build_count_matrix(field_ids, mass_bin_ids, in_mass_range, n_fields, n_mass_
 
     return count_matrix
 
-base_path = "/orcd/data/mvogelsb/005/Lumina/Lumina_above_z_4p75/group_files"
+base_path = os.environ.get("LUMINA_GROUPS", "data/Lumina_above_z_4p75/group_files")
 snap_num = 36
 data = load_data(base_path, snap_num)
 

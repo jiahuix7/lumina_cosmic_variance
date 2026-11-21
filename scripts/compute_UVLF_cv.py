@@ -1,3 +1,4 @@
+import os
 import sys
 from pathlib import Path
 
@@ -41,9 +42,10 @@ lumina_cosmology=FlatLambdaCDM(
     m_nu=0.0*u.eV,
 )
 
-lcdm_base_path = "/orcd/data/mvogelsb/005/Lumina/Lumina_above_z_4p75/group_files"
+# Catalogue locations: set these environment variables, or place the files under data/.
+lcdm_base_path = os.environ.get("LUMINA_LCDM_GROUPS", "data/Lumina_above_z_4p75/group_files")
 #EDE run path below
-ede_hdf5_path = "/home/jxie2/Projects/lumina_cosmic_variance/data/EDE_group_files/fof_subhalo_tab_048.hdf5"
+ede_hdf5_path = os.environ.get("LUMINA_EDE_CATALOGUE", "data/EDE_group_files/fof_subhalo_tab_048.hdf5")
 snap_num = 48
 redshift_EDE = 10.0
 box_size_cmpc_EDE = 500.0
