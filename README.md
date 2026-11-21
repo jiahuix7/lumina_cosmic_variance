@@ -25,17 +25,7 @@ conda activate lumina
 
 ## Data
 
-The simulation catalogues are not included. Point the code at them with environment variables, or place them under `data/` at the default paths:
-
-| Variable | Default | Contents |
-| --- | --- | --- |
-| `LUMINA_LCDM_GROUPS` | `data/Lumina_above_z_4p75/group_files` | LUMINA (ΛCDM) group catalogues |
-| `LUMINA_EDE_CATALOGUE` | `data/EDE_group_files/fof_subhalo_tab_048.hdf5` | LUMINA-EDE subhalo catalogue at z ≈ 10 |
-| `LUMINA_GROUPS` | see each script | Catalogues for the HMF/SMF scripts |
-| `LUMINA_REPO` | parent of `notebooks/` | Repository root used by the notebook |
-| `LUMINA_INSTRUMENT` | `Roman` | Beam geometry: `NIRCam` or `Roman` |
-
-The DMSFE model in the notebook also reads model SFR tables from `data/For_Jiahui_Aug17/`, which are not distributed here.
+The simulation catalogues and data from DMSFE are not included for now.
 
 ## Running
 
